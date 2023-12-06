@@ -1,3 +1,4 @@
+import TextAlign from "@tiptap/extension-text-align";
 import Placeholder from "@tiptap/extension-placeholder";
 import StarterKit from "@tiptap/starter-kit";
 import SlashCommand from "./slash-conmmand";
@@ -7,6 +8,11 @@ import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
 import Color from "@tiptap/extension-color";
 import TextStyle from "@tiptap/extension-text-style";
+import ImageHandler from "./image-handler";
+import Image from "@tiptap/extension-image";
+import ImageResize from "tiptap-imagresize";
+import { GrBottomCorner } from "react-icons/gr";
+import React from "react";
 
 export const TipTapEditorExtensions = [
   StarterKit.configure({
@@ -27,7 +33,7 @@ export const TipTapEditorExtensions = [
     },
     blockquote: {
       HTMLAttributes: {
-        class: "border-l-4 border-gray-300 pl-4",
+        class: "my-blockquote",
       },
     },
     codeBlock: {
@@ -38,10 +44,10 @@ export const TipTapEditorExtensions = [
     code: {
       HTMLAttributes: {
         class:
-          "rounded-md bg-gray-200 px-1.5 py-1 font-mono font-medium text-black",
+          "rounded-md bg-gray-200 px-1.5 py-1 font-mono font-medium text-red-600",
       },
     },
-    horizontalRule: false,
+
     dropcursor: {
       color: "#DBEAFE",
       width: 4,
@@ -64,4 +70,10 @@ export const TipTapEditorExtensions = [
     types: ["textStyle"],
   }),
   TextStyle,
+  TextAlign.configure({
+    types: ["heading", "paragraph"],
+  }),
+  Image,
+  ImageHandler,
+  ImageResize.configure({ useFigure: true }),
 ];

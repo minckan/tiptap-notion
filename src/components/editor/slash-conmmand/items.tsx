@@ -9,6 +9,9 @@ import {
   ListOrdered,
   MessageSquarePlus,
   Text,
+  Quote,
+  TextQuote,
+  Minus,
 } from "lucide-react";
 
 interface Command {
@@ -20,47 +23,8 @@ interface Command {
 export const getSuggestionItems = ({ query }: { query: string }) => {
   return [
     {
-      title: "Heading 1",
-      description: "Big section heading.",
-      icon: <Heading1 size={18} />,
-      command: ({ editor, range }: Command) => {
-        editor
-          .chain()
-          .focus()
-          .deleteRange(range)
-          .setNode("heading", { level: 1 })
-          .run();
-      },
-    },
-    {
-      title: "Heading 2",
-      description: "Medium section heading.",
-      icon: <Heading2 size={18} />,
-      command: ({ editor, range }: Command) => {
-        editor
-          .chain()
-          .focus()
-          .deleteRange(range)
-          .setNode("heading", { level: 2 })
-          .run();
-      },
-    },
-    {
-      title: "Heading 3",
-      description: "Small section heading.",
-      icon: <Heading3 size={18} />,
-      command: ({ editor, range }: Command) => {
-        editor
-          .chain()
-          .focus()
-          .deleteRange(range)
-          .setNode("heading", { level: 3 })
-          .run();
-      },
-    },
-    {
-      title: "Text",
-      description: "Just start typing with plain text.",
+      title: "텍스트",
+      description: "일반 텍스트를 사용해 쓰기를 시작하세요",
       icon: <Text size={18} />,
       command: ({ editor, range }: Command) => {
         editor
@@ -72,35 +36,82 @@ export const getSuggestionItems = ({ query }: { query: string }) => {
       },
     },
     {
-      title: "Bold",
-      description: "Make text bold.",
-      icon: <Bold size={18} />,
+      title: "제목 1",
+      description: "섹션 제목(대)",
+      icon: <Heading1 size={18} />,
       command: ({ editor, range }: Command) => {
-        editor.chain().focus().deleteRange(range).setMark("bold").run();
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setNode("heading", { level: 1 })
+          .run();
       },
     },
     {
-      title: "Italic",
-      description: "Make text italic.",
-      icon: <Italic size={18} />,
+      title: "제목 2",
+      description: "섹션 제목(중)",
+      icon: <Heading2 size={18} />,
       command: ({ editor, range }: Command) => {
-        editor.chain().focus().deleteRange(range).setMark("italic").run();
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setNode("heading", { level: 2 })
+          .run();
       },
     },
     {
-      title: "Bullet List",
-      description: "Create a simple bullet list.",
+      title: "제목 3",
+      description: "섹션 제목(소)",
+      icon: <Heading3 size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setNode("heading", { level: 3 })
+          .run();
+      },
+    },
+    {
+      title: "글머리 기호 목록",
+      description: "간단한 글머리 기호 목록을 생성하세요.",
       icon: <List size={18} />,
       command: ({ editor, range }: Command) => {
         editor.chain().focus().deleteRange(range).toggleBulletList().run();
       },
     },
     {
-      title: "Numbered List",
-      description: "Create a list with numbering.",
+      title: "번호 매기기 목록",
+      description: "번호가 매겨진 목록을 생성하세요.",
       icon: <ListOrdered size={18} />,
       command: ({ editor, range }: Command) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
+      },
+    },
+    {
+      title: "인용",
+      description: "인용문을 작성하세요.",
+      icon: <TextQuote size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor.chain().focus().deleteRange(range).setBlockquote().run();
+      },
+    },
+    {
+      title: "콜아웃",
+      description: "돋보이는 글을 작성하세요.",
+      icon: <Quote size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor.chain().focus().deleteRange(range).setCodeBlock().run();
+      },
+    },
+    {
+      title: "구분선",
+      description: "블록을 시각적으로 나눕니다.",
+      icon: <Minus size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor.chain().focus().deleteRange(range).setHorizontalRule().run();
       },
     },
   ].filter((item) => {

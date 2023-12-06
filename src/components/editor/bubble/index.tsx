@@ -23,6 +23,9 @@ export const BubbleMenu = ({ editor }: BubbleMenuProps) => {
         onHidden: () => {
           setSelectionType(null);
         },
+        onAfterUpdate: () => {
+          setSelectionType(null);
+        },
       }}
     >
       <SelectionMenu

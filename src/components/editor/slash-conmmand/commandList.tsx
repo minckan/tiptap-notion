@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import tippy from "tippy.js";
 
 interface CommandItemProps {
   title: string;
@@ -29,7 +30,7 @@ export const CommandList = ({
   );
 
   useEffect(() => {
-    const navigationKeys = ["ArrowUp", "ArrowDown", "Enter"];
+    const navigationKeys = ["ArrowUp", "ArrowDown", "Enter", "Escape"];
     const onKeyDown = (e: KeyboardEvent) => {
       if (navigationKeys.includes(e.key)) {
         e.preventDefault();
@@ -43,6 +44,16 @@ export const CommandList = ({
         }
         if (e.key === "Enter") {
           selectItem(selectedIndex);
+          return true;
+        }
+
+        if (e.key === "Escape") {
+          const body = document.querySelector("body");
+          const tiptap = document.querySelector(".tiptap");
+          // @ts-ignore
+          body._tippy.hide();
+          // @ts-ignore
+          tiptap?.focus();
           return true;
         }
         return false;
@@ -85,18 +96,20 @@ export const CommandList = ({
         return (
           <button
             ref={isSelected ? selectedButtonRef : null}
-            className={`flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm text-gray-900 hover:bg-gray-100 ${
+            className={`flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm text-gray-900 hover:bg-gray-100 mb-1 ${
               isSelected ? "bg-gray-100 text-gray-900" : ""
             }`}
             key={index}
             onClick={() => selectItem(index)}
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-white">
+            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-white ">
               {item.icon}
             </div>
-            <div>
-              <p className="font-medium">{item.title}</p>
-              <p className="text-xs text-gray-500">{item.description}</p>
+            <div className="m-0 p-0">
+              <p className="font-medium e m-0 p-0">{item.title}</p>
+              <p className="text-xs text-gray-500 e m-0 p-0">
+                {item.description}
+              </p>
             </div>
           </button>
         );
